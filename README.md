@@ -46,3 +46,5 @@ createdb -O ${app_name} ${app_name}_production -E UTF8 -e
 
 * <https://www.postgresql.org/>
 * [Community.Postgresql — Ansible Community Documentation](https://docs.ansible.com/ansible/latest/collections/community/postgresql/index.html)
+* <https://www.pgcli.com/>
+* <https://eggerapps.at/postico2/>
