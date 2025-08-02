@@ -6,6 +6,7 @@
 
 ```bash
 brew install postgresql@16
+brew install pgcli
 ```
 > `Intel-based`
 
