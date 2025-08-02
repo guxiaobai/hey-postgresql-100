@@ -1,3 +1,4 @@
 * [01 Versioning Policy](./01/)
 * [02 Downloads](./02/)
 * [03 The PostgreSQL User Account](./03/)
+* [04 Creating a Database Cluster](./04/)
