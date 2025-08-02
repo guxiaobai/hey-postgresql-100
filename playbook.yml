@@ -10,6 +10,7 @@
     pgdg_key_path: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
     postgres_db_user: app
     postgres_db_password: "@Abc123"
+    postgres_db_name: app_production
 
     
    
@@ -51,4 +52,11 @@
       community.postgresql.postgresql_user:
         name: "{{ postgres_db_user }}"
         password: "{{ postgres_db_password }}"
+        state: present
+
+    - name: Create PostgreSQL database
+      become_user: postgres
+      community.postgresql.postgresql_db:
+        name: "{{ postgres_db_name }}"
+        owner: "{{ postgres_db_user }}"
         state: present

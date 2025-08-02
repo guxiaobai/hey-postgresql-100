@@ -32,12 +32,14 @@ psql postgres
 
 ```bash
 ansible-galaxy install -r requirements.yml
+ansible-playbook playbook.yml
 ```
 
 ## Admin
 
 ```bash
 createuser  ${app_name} -P
+createdb -O ${app_name} ${app_name}_production -E UTF8 -e
 ```
 
 ## Ref
