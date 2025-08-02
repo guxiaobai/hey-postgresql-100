@@ -34,6 +34,13 @@ psql postgres
 ansible-galaxy install -r requirements.yml
 ```
 
+## Admin
+
+```bash
+createuser  ${app_name} -P
+```
+
 ## Ref
 
 * <https://www.postgresql.org/>
+* [Community.Postgresql — Ansible Community Documentation](https://docs.ansible.com/ansible/latest/collections/community/postgresql/index.html)

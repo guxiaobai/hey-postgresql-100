@@ -8,6 +8,9 @@
     # pgdg_repo_url: https://apt.postgresql.org/pub/repos/apt
     pgdg_repo_url: https://mirrors.aliyun.com/postgresql/repos/apt/
     pgdg_key_path: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+    postgres_db_user: app
+    postgres_db_password: "@Abc123"
+
     
    
   
@@ -43,4 +46,9 @@
         - libpq-dev
         - python3-psycopg2
 
-  
+    - name: Create PostgreSQL user
+      become_user: postgres
+      community.postgresql.postgresql_user:
+        name: "{{ postgres_db_user }}"
+        password: "{{ postgres_db_password }}"
+        state: present
