@@ -6,7 +6,6 @@
 
 ```bash
 brew install postgresql@16
-brew install pgcli
 ```
 > `Intel-based`
 
@@ -26,6 +25,20 @@ brew services start postgresql@16
 ```bash
 psql postgres
 ```
+
+---
+**Tools**
+
+```bash
+brew install postico
+```
+
+```bash
+brew install pgcli
+pip install pgcli
+```
+
+
 
 ## Ubuntu
 
