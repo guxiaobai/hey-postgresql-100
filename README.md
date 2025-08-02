@@ -35,6 +35,30 @@ ansible-galaxy install -r requirements.yml
 ansible-playbook playbook.yml
 ```
 
+
+
+---
+```bash
+sudo su - postgres
+psql
+```
+
+```bash
+sudo -u postgres psql
+```
+
+```bash
+sudo systemctl status postgresql@16-main.service
+```
+
+```
+# cat /var/lib/postgresql/16/main/postmaster.opts
+/etc/postgresql/15/main/postgresql.conf
+
+# cat /etc/postgresql/16/main/postgresql.conf|grep pg_hba.conf
+/etc/postgresql/15/main/pg_hba.conf
+```
+
 ## Admin
 
 ```bash
