@@ -4,3 +4,4 @@
 * [04 Creating a Database Cluster](./04/)
 * [05 createuser](./05/)
 * [06 createdb](./06/)
+* [07 psql](./07/)
