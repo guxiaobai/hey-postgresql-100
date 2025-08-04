@@ -27,15 +27,6 @@ psql postgres
 ```
 
 ---
-**Tools**
-
-
-```bash
-brew install pgcli
-pip install pgcli
-```
-
-
 
 ## Ubuntu
 
@@ -81,4 +72,3 @@ createdb -O ${app_name} ${app_name}_production -E UTF8 -e
 
 * <https://www.postgresql.org/>
 * [Community.Postgresql — Ansible Community Documentation](https://docs.ansible.com/ansible/latest/collections/community/postgresql/index.html)
-* <https://www.pgcli.com/>
