@@ -2,7 +2,7 @@
 
 ## macOS
 
-> `15.5`
+> `15.6`
 
 ```bash
 brew install postgresql@16
