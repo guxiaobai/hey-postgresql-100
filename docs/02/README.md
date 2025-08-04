@@ -6,5 +6,5 @@
 
 ## Ref
 
-* https://www.postgresql.org/download/linux/ubuntu/
+* <https://www.postgresql.org/download/linux/ubuntu/>
 * <https://developer.aliyun.com/mirror/postgresql>
