@@ -5,3 +5,4 @@
 * [05 createuser](./05/)
 * [06 createdb](./06/)
 * [07 psql](./07/)
+* [08 Connection Settings](./08)
