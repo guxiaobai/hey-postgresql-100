@@ -6,3 +6,4 @@
 * [06 createdb](./06/)
 * [07 psql](./07/)
 * [08 Connection Settings](./08)
+* [09 Client Authentication](./09)
