@@ -8,15 +8,23 @@
     # pgdg_repo_url: https://apt.postgresql.org/pub/repos/apt
     pgdg_repo_url: https://mirrors.aliyun.com/postgresql/repos/apt/
     pgdg_key_path: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+
+    # 数据库配置
     postgres_db_user: app
     postgres_db_password: "@Abc123"
     postgres_db_name: app_production
+
+    # 网络访问配置
+    postgres_listen_addresses: "*"
+    # 172.16.0.0/16(aliyun vpc)
+    # 192.168.100.0/24(Hi)
+    postgres_allow_cidr: "0.0.0.0/0"  # 可改成你的内网网段
 
     
    
   
   handlers:
-    - name: restart postgresql
+    - name: Restart PostgreSQL
       service: name=postgresql@16-main.service state=restarted
 
   tasks:
@@ -26,6 +34,7 @@
         state: present
       with_items:
         - acl
+        - net-tools
       
     - name: create postgresql-common directory
       file:
@@ -67,3 +76,17 @@
         name: "{{ postgres_db_name }}"
         owner: "{{ postgres_db_user }}"
         state: present
+
+    - name: Configure PostgreSQL to listen on all addresses
+      lineinfile:
+        path: "/etc/postgresql/{{ postgres_version }}/main/postgresql.conf"
+        regexp: '^#?listen_addresses\s*='
+        line: "listen_addresses = '{{ postgres_listen_addresses | mandatory }}'"
+      notify: Restart PostgreSQL
+
+    - name: Allow remote connections in pg_hba.conf
+      lineinfile:
+        path: "/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf"
+        insertafter: EOF
+        line: "host    all    all    {{ postgres_allow_cidr | mandatory }}    scram-sha-256"
+      notify: Restart PostgreSQL
