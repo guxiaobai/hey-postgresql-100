@@ -20,6 +20,13 @@
       service: name=postgresql@16-main.service state=restarted
 
   tasks:
+    - name: install dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - acl
+      
     - name: create postgresql-common directory
       file:
         path: "{{ pgdg_key_path | dirname }}"
