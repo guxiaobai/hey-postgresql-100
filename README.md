@@ -7,14 +7,12 @@
 ```bash
 brew install postgresql@16
 ```
-> `Intel-based`
 
 ```bash
+# Intel-based
 fish_add_path /usr/local/opt/postgresql@16/bin
-```
-> `Apple silicon`
 
-```bash
+# Apple silicon
 fish_add_path /opt/homebrew/opt/postgresql@16/bin
 ```
 
