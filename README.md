@@ -66,6 +66,16 @@ createuser  ${app_name} -P
 createdb -O ${app_name} ${app_name}_production -E UTF8 -e
 ```
 
+
+
+## pg uuid 设置
+
+```bash
+CREATE EXTENSION "uuid-ossp";
+```
+
+
+
 ## Ref
 
 * <https://www.postgresql.org/>
