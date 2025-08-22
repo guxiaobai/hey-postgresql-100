@@ -80,3 +80,4 @@ CREATE EXTENSION "uuid-ossp";
 
 * <https://www.postgresql.org/>
 * [Community.Postgresql — Ansible Community Documentation](https://docs.ansible.com/ansible/latest/collections/community/postgresql/index.html)
+* [PostgreSQL能存万物！这还是你认识的数据库吗？ #数据库 #编程 #科技 #人工智能 - YouTube](https://www.youtube.com/watch?v=1UPoCK0v22w)
