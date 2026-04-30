@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  become_user: postgres
   vars:
     postgres_db_user: hey8
     postgres_db_password: "password"
@@ -27,5 +26,7 @@
           name: "{{ postgres_db_name }}"
           owner: "{{ postgres_db_user }}"
           state: present
+
+      # 需要切换到 postgres 用户，因为其他用户操作不了
       become: true
       become_user: postgres
