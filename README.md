@@ -53,10 +53,10 @@ sudo systemctl status postgresql@16-main.service
 
 ```
 # cat /var/lib/postgresql/16/main/postmaster.opts
-/etc/postgresql/15/main/postgresql.conf
+/etc/postgresql/16/main/postgresql.conf
 
 # cat /etc/postgresql/16/main/postgresql.conf|grep pg_hba.conf
-/etc/postgresql/15/main/pg_hba.conf
+/etc/postgresql/16/main/pg_hba.conf
 ```
 
 ## Admin
@@ -79,5 +79,4 @@ CREATE EXTENSION "uuid-ossp";
 ## Ref
 
 * <https://www.postgresql.org/>
-* [Community.Postgresql — Ansible Community Documentation](https://docs.ansible.com/ansible/latest/collections/community/postgresql/index.html)
 * [PostgreSQL能存万物！这还是你认识的数据库吗？ #数据库 #编程 #科技 #人工智能 - YouTube](https://www.youtube.com/watch?v=1UPoCK0v22w)

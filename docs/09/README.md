@@ -12,7 +12,7 @@
 
 ## Client Authentication
 
-> `/etc/postgresql/15/main/pg_hba.conf` 
+> `/etc/postgresql/16/main/pg_hba.conf` 
 >
 > 客户端身份验证由配置文件控制，该文件传统上名为 `pg_hba.conf`
 

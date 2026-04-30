@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become_user: postgres
+  vars:
+    postgres_db_user: hey8
+    postgres_db_password: "password"
+    postgres_db_name: app_production
+
+  tasks:
+    - name: install community.postgresql Requirements
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - python3-psycopg2
+    - block:
+      - name: Create PostgreSQL user
+        become_user: postgres
+        community.postgresql.postgresql_user:
+          name: "{{ postgres_db_user }}"
+          password: "{{ postgres_db_password }}"
+          state: present
+
+      - name: Create PostgreSQL database
+        become_user: postgres
+        community.postgresql.postgresql_db:
+          name: "{{ postgres_db_name }}"
+          owner: "{{ postgres_db_user }}"
+          state: present
+      become: true
+      become_user: postgres

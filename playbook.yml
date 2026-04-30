@@ -1,19 +1,13 @@
 ---
 - hosts: all
-  become: yes
   vars:
     postgres_version: 16
+    pgdg_key_path: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+    # pgdg_repo_url: https://apt.postgresql.org/pub/repos/apt
     # pgdg_key_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     pgdg_key_url: https://mirrors.aliyun.com/postgresql/repos/apt/ACCC4CF8.asc
-    # pgdg_repo_url: https://apt.postgresql.org/pub/repos/apt
     pgdg_repo_url: https://mirrors.aliyun.com/postgresql/repos/apt/
-    pgdg_key_path: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
-
-    # 数据库配置
-    postgres_db_user: app
-    postgres_db_password: "@Abc123"
-    postgres_db_name: app_production
-
+    
     # 网络访问配置
     postgres_listen_addresses: "*"
     # 172.16.0.0/16(aliyun vpc)
@@ -25,17 +19,9 @@
   
   handlers:
     - name: Restart PostgreSQL
-      service: name=postgresql@16-main.service state=restarted
+      service: name=postgresql@{{ postgres_version}}-main.service state=restarted
 
-  tasks:
-    - name: install dependencies
-      apt:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - acl
-        - net-tools
-      
+  tasks:      
     - name: create postgresql-common directory
       file:
         path: "{{ pgdg_key_path | dirname }}"
@@ -49,7 +35,7 @@
 
     - name : add postgresql repo
       apt_repository:
-        repo: deb [signed-by={{ pgdg_key_path }}] {{ pgdg_repo_url }} {{ ansible_distribution_release }}-pgdg main
+        repo: deb [signed-by={{ pgdg_key_path }}] {{ pgdg_repo_url }} {{ ansible_facts["distribution_release"] }}-pgdg main
         state: present
         filename: pgdg
 
@@ -61,22 +47,8 @@
         - "postgresql-{{ postgres_version }}"
         - "postgresql-client-{{ postgres_version }}"
         - libpq-dev
-        - python3-psycopg2
 
-    - name: Create PostgreSQL user
-      become_user: postgres
-      community.postgresql.postgresql_user:
-        name: "{{ postgres_db_user }}"
-        password: "{{ postgres_db_password }}"
-        state: present
-
-    - name: Create PostgreSQL database
-      become_user: postgres
-      community.postgresql.postgresql_db:
-        name: "{{ postgres_db_name }}"
-        owner: "{{ postgres_db_user }}"
-        state: present
-
+    # 08 Connection Settings
     - name: Configure PostgreSQL to listen on all addresses
       lineinfile:
         path: "/etc/postgresql/{{ postgres_version }}/main/postgresql.conf"
@@ -84,6 +56,7 @@
         line: "listen_addresses = '{{ postgres_listen_addresses | mandatory }}'"
       notify: Restart PostgreSQL
 
+    # 09 Authentication
     - name: Allow remote connections in pg_hba.conf
       lineinfile:
         path: "/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf"
