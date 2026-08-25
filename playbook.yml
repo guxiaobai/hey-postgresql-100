@@ -33,11 +33,22 @@
         url: "{{ pgdg_key_url }}"
         dest: "{{ pgdg_key_path }}"
 
+    # - name : add postgresql repo
+    #   apt_repository:
+    #     repo: deb [signed-by={{ pgdg_key_path }}] {{ pgdg_repo_url }} {{ ansible_facts["distribution_release"] }}-pgdg main
+    #     state: present
+    #     filename: pgdg
+
     - name : add postgresql repo
-      apt_repository:
-        repo: deb [signed-by={{ pgdg_key_path }}] {{ pgdg_repo_url }} {{ ansible_facts["distribution_release"] }}-pgdg main
-        state: present
-        filename: pgdg
+      deb822_repository:
+        types: ["deb", "deb-src"]
+        uris: "{{ pgdg_repo_url }}"
+        suites: "{{ ansible_facts['distribution_release'] }}-pgdg"
+        architectures: amd64
+        components: main
+        signed_by: "{{ pgdg_key_path }}"
+        name: pgdg
+        
 
     - name: install postgresql
       apt:
