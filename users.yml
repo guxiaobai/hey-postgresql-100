@@ -18,6 +18,7 @@
         community.postgresql.postgresql_user:
           name: "{{ postgres_db_user }}"
           password: "{{ postgres_db_password }}"
+          role_attr_flags: 'CREATEDB'
           state: present
 
       - name: Create PostgreSQL database
