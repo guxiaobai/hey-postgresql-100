@@ -2,12 +2,6 @@
 - hosts: all
   vars:
     postgres_version: 16
-    pgdg_key_path: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
-    # pgdg_repo_url: https://apt.postgresql.org/pub/repos/apt
-    # pgdg_key_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-    pgdg_key_url: https://mirrors.aliyun.com/postgresql/repos/apt/ACCC4CF8.asc
-    pgdg_repo_url: https://mirrors.aliyun.com/postgresql/repos/apt/
-    
     # 网络访问配置
     postgres_listen_addresses: "*"
     # 172.16.0.0/16(aliyun vpc)
@@ -21,32 +15,17 @@
     - name: Restart PostgreSQL
       service: name=postgresql@{{ postgres_version}}-main.service state=restarted
 
-  tasks:      
-    - name: create postgresql-common directory
-      file:
-        path: "{{ pgdg_key_path | dirname }}"
-        state: directory
-        mode: '0755'
-
-    - name : add postgresql key
-      get_url:
-        url: "{{ pgdg_key_url }}"
-        dest: "{{ pgdg_key_path }}"
-
-    # - name : add postgresql repo
-    #   apt_repository:
-    #     repo: deb [signed-by={{ pgdg_key_path }}] {{ pgdg_repo_url }} {{ ansible_facts["distribution_release"] }}-pgdg main
-    #     state: present
-    #     filename: pgdg
-
+  tasks:
     - name : add postgresql repo
       deb822_repository:
         types: ["deb", "deb-src"]
-        uris: "{{ pgdg_repo_url }}"
+        # https://apt.postgresql.org/pub/repos/apt
+        uris: https://mirrors.aliyun.com/postgresql/repos/apt/
         suites: "{{ ansible_facts['distribution_release'] }}-pgdg"
         architectures: amd64
         components: main
-        signed_by: "{{ pgdg_key_path }}"
+        # https://www.postgresql.org/media/keys/ACCC4CF8.asc
+        signed_by: https://mirrors.aliyun.com/postgresql/repos/apt/ACCC4CF8.asc
         name: pgdg
         
 

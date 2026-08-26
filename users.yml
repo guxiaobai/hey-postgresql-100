@@ -3,7 +3,7 @@
   vars:
     postgres_db_user: hey8
     postgres_db_password: "password"
-    postgres_db_name: hey8
+    postgres_db_name: hey8_app
 
   tasks:
     - name: install community.postgresql Requirements
